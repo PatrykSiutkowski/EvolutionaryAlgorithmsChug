@@ -19,14 +19,14 @@ parser.add_argument("--exval"           , type=int  , default=99)
 args = parser.parse_args()
 
 basepath = Path(__file__).resolve().parent.parent.parent
-filepath = f"{basepath}/VRPAlgorithmComparison/Database/{args.dataset}"
+filepath = f"{basepath}/EvolutionaryAlgorihtmsChug/Dataset/{args.dataset}"
 
 def distance(v1, v2): # Calculates distance between two nodes
     return math.sqrt((v1.x - v2.x)**2+(v1.y - v2.y)**2)
 
 def getvalue(filename): # Get shortest route from .sol file
     base = os.path.splitext(os.path.basename(filename))[0]
-    sol_filename = f"/home/patryksiutkowski/GitHub/VRPAlgorithmComparison/Database/{base}.sol"
+    sol_filename = f"{basepath}/EvolutionaryAlgorihtmsChug/Dataset/{base}.sol"
 
     with open(sol_filename) as f:
         for line in f:
