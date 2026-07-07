@@ -2,22 +2,31 @@
 
 ## by: Patryk Siutkowski
 
+### Resources Used
+
+- Python
+- VSCode
+- git / Github
+- Matplotlib
+
 ### Day 1
 
 - Introduction to EAs
-- Familarisation with the code
-- Make sure you know how to run the code
+- Introduction to the GA
+- Unit test to ensuring the code can run
 
 ### Day 2
 
-- Develop an understanding of the GA
-- Change the Crossover mechanism
-- Change the Mutation rates
-- Cahnge the Selection mechanism
+- Familiarisation with GA code
+- Develop the Crossover mechanism
+- Develop the Mutation mechanism
+- Develop the Selection mechanism
+- Run the algorihtm and get a solution
 
 ### Day 3
 
-- Change the parameters to see how it effects the solution
+- Change the parameters of Crossover, Mutation, Selection to see how it effects the solution
+- Plot the best result
 
 ### Day 4
 
