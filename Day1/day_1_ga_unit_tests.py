@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
 
+import os
 import unittest
 import sys
 import subprocess
 
 
 class TestEnvironment(unittest.TestCase):
-
     def test_python_version(self):
+        """Ensure Python version is 3.x"""
         major_version = sys.version_info.major
-        minor_version = sys.version_info.minor
-
-        print(f"\n[INFO] Running Python version: {major_version}.{minor_version}")
-        
-        # Assert that we are using at least Python 3
+        print(f"\n[INFO] Running Python version: {major_version}.{sys.version_info.minor}")
         self.assertEqual(major_version, 3, "Python version is not 3.x")
 
     def test_matplotlib_installed(self):
+        """Check if matplotlib is installed"""
         try:
             import matplotlib
             print(f"[INFO] Matplotlib is available (Version: {matplotlib.__version__})")
@@ -24,20 +22,39 @@ class TestEnvironment(unittest.TestCase):
             self.fail("matplotlib is not installed in the current environment")
 
     def test_git_accessible(self):
+        """Check if git is installed; if not, attempt to install it on Windows/Linux"""
         try:
-            # Runs 'git --version' without popping up a console window
+            # Check if Git is already available
             result = subprocess.run(
                 ["git", "--version"], 
                 capture_output=True, 
                 text=True, 
-                check=True
+                check=True,
+                shell=os.name == 'nt'  # Required for some Windows environments to find CLI tools
             )
-            # Strips the trailing newline from the output
-            git_version = result.stdout.strip()
-            print(f"[INFO] Git is available ({git_version})")
+            print(f"[INFO] Git is already available ({result.stdout.strip()})")
             
         except (subprocess.CalledProcessError, FileNotFoundError):
-            self.fail("Git is either not installed or not added to your system's PATH")
+            print("[WARN] Git not found. Attempting auto-installation...")
+            
+            try:
+                if os.name == 'nt':  # Windows
+                    print("[INFO] Windows detected. Running winget install...")
+                    # --silent and --accept-source-agreements ensure no GUI popups stall the script
+                    subprocess.run(
+                        ["winget", "install", "--id", "Git.Git", "-e", "--silent", "--accept-source-agreements"], 
+                        check=True,
+                        shell=True
+                    )
+                else:  # Linux/macOS fallback
+                    print("[INFO] Linux/Unix detected. Running apt-get...")
+                    subprocess.run(["sudo", "apt-get", "update"], check=True)
+                    subprocess.run(["sudo", "apt-get", "install", "-y", "git"], check=True)
+                
+                print("[SUCCESS] Git installation completed successfully.")
+                
+            except (subprocess.CalledProcessError, FileNotFoundError) as e:
+                self.fail(f"Git was missing and auto-installation failed. Error: {e}")
 
 
 if __name__ == "__main__":
