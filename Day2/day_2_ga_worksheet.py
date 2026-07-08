@@ -66,10 +66,10 @@ def fitness(individual, vertices, demands, capacity):
 
 def ox(parent1, parent2, crossover_rate): # OX crossover
     # TODO:
-    # Create a Crossover code to mix the genetics of the parents
-    #
-    #
-    #
+    # Create Crossover code to mix the genetics of the parents
+    # This is acomplished by randomly sampling two points
+    # then inserting those points into the child
+    # 
     #
     ...
     
@@ -86,10 +86,10 @@ def mutate(individual, mutation_rate): # Mutation (swap)
 
 def tournament_selection(population, fitnesses, tounament_size): # Tournament selection
     # TODO:
-    # create a variable that ramdomly samples the population alongside their fitnesses
-    # then sorts them
-    # 
-    #
+    # create a variable that ramdomly samples the population in a list 
+    # and use `zip` to combine the population and their fitnesses.
+    # then sort them
+    # return the the best ones.
     ...
     
     selected = random.sample(list(zip(population, fitnesses)), tounament_size)

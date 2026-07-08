@@ -14,10 +14,12 @@
 - Introduction to EAs
 - Introduction to the GA
 - Unit test to ensuring the code can run
+- Familiarisation with GA code
 
 ### Day 2
 
-- Familiarisation with GA code
+- Delete local repo
+- `git clone` / `git pull` with `git stash`
 - Develop the Crossover mechanism
 - Develop the Mutation mechanism
 - Develop the Selection mechanism
@@ -25,8 +27,8 @@
 
 ### Day 3
 
-- Change the parameters of Crossover, Mutation, Selection to see how it effects the solution
-- Plot the best result
+- Change the parameters of Crossover, Mutation and Selection to see how it effects the solution
+- Plot the best result using `matplotlib`
 
 ### Day 4
 
