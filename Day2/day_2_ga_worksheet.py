@@ -65,32 +65,14 @@ def fitness(individual, vertices, demands, capacity):
     return total
 
 def ox(parent1, parent2, crossover_rate): # OX crossover
-    if random.random() > crossover_rate:
-        return parent1.copy(), parent2.copy()
-
-    size = len(parent1)
-    p1, p2 = sorted(random.sample(range(size), 2))
-
-    def create_child(a, b):
-        child = [-1] * size
-        child[p1:p2] = a[p1:p2]
-
-        fill = []
-
-        for x in b:
-            if x not in child:
-                fill.append(x)
-
-        idx = 0
-
-        for i in range(size):
-            if child[i] == -1:
-                child[i] = fill[idx]
-                idx += 1
-        
-        return child
+    # TODO:
+    # Create a Crossover code to mix the genetics of the parents
+    #
+    #
+    #
+    #
+    ...
     
-    return create_child(parent1, parent2), create_child(parent2, parent1)
 
 def mutate(individual, mutation_rate): # Mutation (swap)
     if random.random() < mutation_rate:
