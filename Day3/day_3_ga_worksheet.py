@@ -7,16 +7,16 @@ import extract_data as ed
 import math
 import os
 import matplotlib as plt
+
 # Argument Parsing
 parser = argparse.ArgumentParser()
 parser.add_argument("--dataset"         , type=str  , default="F-n45-k4.vrp")
 parser.add_argument("--population"      , type=int  , default=10)
-parser.add_argument("--generations"      , type=int , default=1000)
+parser.add_argument("--generations"     , type=int  , default=1000)
 parser.add_argument("--mutation"        , type=float, default=0.5)
 parser.add_argument("--crossover"       , type=float, default=0.5)
 parser.add_argument("--tournament_size" , type=int  , default=3)
-parser.add_argument("--dynamic_strategy", type=str  , default="ILM_DHC")
-parser.add_argument("--exval"           , type=int  , default=99)
+parser.add_argument("--exval"           , type=int  , default=0)
 args = parser.parse_args()
 
 basepath = Path(__file__).resolve().parent.parent.parent
@@ -50,7 +50,7 @@ def fitness(individual, vertices, demands, capacity):
     total = 0
     for route in routes:
         for i in range(len(route) - 1):
-            total += functions.distance(vertices[route[i]], vertices[route[i+1]])
+            total += distance(vertices[route[i]], vertices[route[i+1]])
 
     return total
 
@@ -107,21 +107,6 @@ def generate_population(num_customers, population): # Initial population
 
     return population
 
-def get_dynamic_rates(t, T, strategy):
-    if strategy == "ILM_DHC":
-        mutation  = (t / T)
-        crossover = 1 - (t / T)
-
-    elif strategy == "DHM_ILC":
-        mutation  = 1 - (t / T)
-        crossover = (t / T)
-
-    else: # fallback to static
-        mutation = args.mutation_rate
-        crossover = args.crossover_rate
-
-    return mutation, crossover
-
 def genetic_algorithm(vertices, demands, capacity):
     population = generate_population(len(vertices), args.population)
 
@@ -152,16 +137,10 @@ def genetic_algorithm(vertices, demands, capacity):
             parent1 = tournament_selection(population, fitnesses, args.tournament_size)
             parent2 = tournament_selection(population, fitnesses, args.tournament_size)
 
-            if args.dynamic_strategy == "DHM_ILC" or args.dynamic_strategy == "ILM_DHC":
-                mutation_rate, crossover_rate = get_dynamic_rates(gen, args.generations, args.dynamic_strategy)
-                child1, child2 = ox(parent1, parent2, crossover_rate)
-                child1 = mutate(child1, mutation_rate)
-                child2 = mutate(child2, mutation_rate)
-
-            else:
-                child1, child2 = ox(parent1, parent2, args.crossover_rate)
-                child1 = mutate(child1, args.mutation_rate)
-                child2 = mutate(child2, args.mutation_rate)
+           
+            child1, child2 = ox(parent1, parent2, args.crossover_rate)
+            child1 = mutate(child1, args.mutation_rate)
+            child2 = mutate(child2, args.mutation_rate)
             
             new_population.extend([child1, child2])
 
@@ -170,13 +149,15 @@ def genetic_algorithm(vertices, demands, capacity):
     routes = split_routes(best_solution, demands, capacity)
     return routes, best_cost, fitness_over_time
 
-
 def distance(v1, v2): # Calculates distance between two nodes
     return math.sqrt((v1.x - v2.x)**2+(v1.y - v2.y)**2)
 
 def getvalue(filename): # Get shortest route from .sol file
     base = os.path.splitext(os.path.basename(filename))[0]
-    sol_filename = f"/home/patryksiutkowski/GitHub/VRPAlgorithmComparison/Database/{base}.sol"
+
+    #TODO:
+    # enter your current working directory
+    sol_filename = f"ENTER_FILE_PATH_HERE/Database/{base}.sol"
 
     with open(sol_filename) as f:
         for line in f:
@@ -194,7 +175,12 @@ def plot_results(vertices, solution, distance_over_time, distance_found, filenam
 
     fig.suptitle(f"Vehicle Routing Solution using Genetic Algorithm for: {name}", fontsize=12)
 
-
+    #TODO:
+    # Write code to plot the results
+    #
+    #
+    #
+    #
 
 if __name__ == "__main__":
     vertices, demands, capacity = ed.extract_data(filepath)
