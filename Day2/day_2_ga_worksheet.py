@@ -91,11 +91,6 @@ def tournament_selection(population, fitnesses, tounament_size): # Tournament se
     # then sort them
     # return the the best ones.
     ...
-    
-    selected = random.sample(list(zip(population, fitnesses)), tounament_size)
-    selected.sort(key=lambda x: x[1])
-    
-    return selected[0][0]
 
 def generate_population(num_customers, population_size): # Initial population
 
