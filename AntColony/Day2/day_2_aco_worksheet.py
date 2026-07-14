@@ -232,7 +232,7 @@ def plot_results(vertices, solution, distance_over_time, distance_found, filenam
     #TODO:
     # Enter your current working directory
     # directory is another term for file path
-    plt.savefig(f"ENTER_YOUR_FILE_PATH_HERE/{algo}_{name}_test_no_{exval}.png")
+    plt.savefig(f"ENTER_YOUR_FILE_PATH_HERE/AntColony/Results/{algo}_{name}_test_no_{exval}.png")
 
 def getvalue(filename): # Get shortest route from .sol file
     base = os.path.splitext(os.path.basename(filename))[0]
