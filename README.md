@@ -8,21 +8,19 @@
 - VSCode
 - git / Github
 - Matplotlib
+- [Ant Colony Visualisation](https://poolik.github.io/visual-aco/#/visualisation)
 
 ### Day 1
 
 - Introduction to EAs
-- Introduction to the GA
+- Introduction to the ACO
 - Unit test to ensuring the code can run
-- Familiarisation with GA code
+- Familiarisation with ACO code and ACO algorithm
 
 ### Day 2
 
-- Delete local repo
-- `git clone` / `git pull` with `git stash`
-- Develop the Crossover mechanism
-- Develop the Mutation mechanism
-- Develop the Selection mechanism
+- `git pull` with `git stash`
+- Complete all `TODO` assignments in the worksheet
 - Run the algorihtm and get a solution
 
 ### Day 3
