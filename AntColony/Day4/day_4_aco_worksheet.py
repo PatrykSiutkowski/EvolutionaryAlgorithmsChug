@@ -290,7 +290,7 @@ def plot_results(vertices, solution, distance_over_time, distance_found, filenam
     # Enter your current working directory
     # directory is another term for file path
 
-    plt.savefig(f"/home/patryksiutkowski/GitHub/EvolutionaryAlgorithmsChug/AntColony/Results/{algo}_{name}_test_no_{exval}.png")
+    plt.savefig(f"ENTER_YOUR_FILE_PATH_HERE/{algo}_{name}_test_no_{exval}.png")
 
 def animate_results(vertices, solutions_over_time, distance_over_time, distance_found, filename, shortest, algo, exval):
 
@@ -299,14 +299,20 @@ def animate_results(vertices, solutions_over_time, distance_over_time, distance_
 
     colors = ['blue', 'green', 'red', 'purple', 'cyan', 'grey', 'pink']
 
-    fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+
+    # TODO:
+    # complete this so that fig and axs are equal to two subplots 1 and 2 with a figsize of 12 and 6
+    fig, axs = plt.subplots(...)
+
     fig.suptitle(f"Vehicle Routing Solution using Genetic Algorithm for: {name}",fontsize=12)
 
     def update(frame):
 
-        # Clear previous drawings
-        axs[0].clear()
-        axs[1].clear()
+        # TODO:
+        # Clear previous drawings from axs[0] and axs[1]
+        # using .clear()
+
+        ...
 
         solution = solutions_over_time[frame]
 
@@ -316,8 +322,11 @@ def animate_results(vertices, solutions_over_time, distance_over_time, distance_
         for idx, route in enumerate(solution):
             color = colors[idx % len(colors)]
 
-            x = [vertices[i].x for i in route] + [vertices[route[0]].x]
-            y = [vertices[i].y for i in route] + [vertices[route[0]].y]
+            # TODO:
+            # figure out what the certices shold be 
+            # HINT: you did this before
+            x = ...
+            y = ...
 
             axs[0].plot(
                 x, y,
@@ -359,10 +368,7 @@ def animate_results(vertices, solutions_over_time, distance_over_time, distance_
         )
 
         axs[1].set_xlim(0, len(distance_over_time))
-        axs[1].set_ylim(
-            min(distance_over_time) * 0.95,
-            max(distance_over_time) * 1.05
-        )
+        axs[1].set_ylim(min(distance_over_time) * 0.95,max(distance_over_time) * 1.05)
 
         axs[1].set_title("Convergence")
         axs[1].set_xlabel("Generation")
@@ -392,7 +398,10 @@ def animate_results(vertices, solutions_over_time, distance_over_time, distance_
         repeat=False
     )
 
-    output = f"/home/patryksiutkowski/GitHub/EvolutionaryAlgorithmsChug/AntColony/Results/{algo}_{name}_test_no_{exval}.mp4"
+    # TODO:
+    # Enter your file path
+
+    output = f"ENTER_YOUR_FILE_PATH{algo}_{name}_test_no_{exval}.mp4"
 
     plt.tight_layout()
 
@@ -402,7 +411,10 @@ def animate_results(vertices, solutions_over_time, distance_over_time, distance_
 
 def getvalue(filename): # Get shortest route from .sol file
     base = os.path.splitext(os.path.basename(filename))[0]
-    sol_filename = f"/home/patryksiutkowski/GitHub/VRPAlgorithmComparison/Database/{base}.sol"
+
+    # TODO:
+    # Enter your file path
+    sol_filename = f"ENTER_YOUR_FILE_PATH/Database/{base}.sol"
 
     with open(sol_filename) as f:
         for line in f:
